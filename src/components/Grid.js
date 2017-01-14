@@ -19,7 +19,7 @@ class Grid extends React.Component {
         }
     }
 
-    onSearchFilter( roms ) {
+    onSearchFilter = roms => {
         this.setState( {
             roms: roms,
             title: 'Search Results'
@@ -30,7 +30,7 @@ class Grid extends React.Component {
         this.props.router.push( '/play/' + rom.slug );
     }
 
-    onSearchClose() {
+    onSearchClose = () => {
         this.setState( {
             roms: this.topRoms,
             title: 'Cool Stuff'
