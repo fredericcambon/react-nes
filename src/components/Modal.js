@@ -7,7 +7,7 @@ class Modal extends React.Component {
 
     componentWillReceiveProps( props ) {
         if ( props.show ) {
-            $( this.refs.modal ).modal( 'show' );
+            //$( this.refs.modal ).modal( 'show' );
         }
     }
 

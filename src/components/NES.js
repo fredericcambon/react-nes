@@ -22,14 +22,14 @@ class NES extends React.Component {
     constructor( props ) {
         super( props );
 
-        this.rom = ROMS[ _.findIndex( ROMS, [ 'slug', this.props.params.game ] ) ];
+        this.rom = ROMS[ _.findIndex( ROMS, [ 'slug', this.props.match.params.game ] ) ];
         this.console = new Console();
-        this.props.router.setRouteLeaveHook( this.props.route, () => {
-            return 'You have an ongoing game, are you sure you want to leave this page?'
-        } )
+        //this.props.router.setRouteLeaveHook( this.props.route, () => {
+        //  return 'You have an ongoing game, are you sure you want to leave this page?';
+        //} );
         this.state = {
             showHelpModal: false
-        }
+        };
     }
 
     boot() {
@@ -38,20 +38,12 @@ class NES extends React.Component {
         }.bind( this ) );
     }
 
-
     componentDidMount() {
         this.boot()
     }
 
     componentWillUnmount() {
         this.console.stop()
-    }
-
-    onSearchSelect = rom => {
-        this.props.router.push( '/play/' + rom.slug );
-        this.rom = rom;
-        this.console.stop();
-        this.boot();
     }
 
     render() {
@@ -64,7 +56,6 @@ class NES extends React.Component {
 
         return (
             <div>
-                <Menu onSearchFilter={() => {}} onSearchClose={() => {}} onSearchSelect={this.onSearchSelect} focus={false} />
                 <HelpModal show={this.state.showHelpModal} onClose={() => {this.setState({showHelpModal: false})}} />
                 <div className="jumbotron" style={{'margin': '1rem'}}>
                     <div className="container-fluid">

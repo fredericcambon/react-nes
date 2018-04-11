@@ -1,41 +1,41 @@
 import React from 'react';
 import Select from 'react-select';
+import _ from 'lodash';
 
 import {
-    ROMS
+  ROMS
 } from '../utils/constants';
-
 
 class SearchROM extends React.Component {
 
-    constructor( props ) {
-        super( props );
+  constructor(props) {
+    super(props);
 
-        this.roms = ROMS;
+    this.roms = ROMS;
+  }
+
+  onChange = event => {
+    var value = event.target.value;
+
+    if (value) {
+      var results = _.filter(this.roms, (r) => {
+          return r.label.toLowerCase()
+            .indexOf(value.toLowerCase()) !== -1;
+        })
+        .slice(0, 24);
+
+      this.props.onFilter(results);
+    } else {
+      this.props.onClose();
     }
+  }
 
-    onChange = rom => {
-        this.props.onSelect( rom );
-    }
+  render() {
+    return (
+      <input onChange={this.onChange} options={this.roms} onClose={() => {this.props.onClose()}} placeholder="Search for games..." className="form-control form-control-lg"/>
+    );
 
-    onInputChange = value => {
-        if ( value ) {
-            var results = _.filter( this.roms, ( r ) => {
-                return r.label.toLowerCase().indexOf( value ) !== -1;
-            } ).slice( 0, 24 );
-
-            this.props.onFilter( results );
-        } else {
-            this.props.onClose();
-        }
-    }
-
-    render() {
-        return (
-            <Select placeholder="Search (Super Mario Bros, Zelda ...)" autofocus={this.props.focus} onInputChange={this.onInputChange} onChange={this.onChange} options={this.roms} onClose={() => {this.props.onClose()}} />
-        )
-
-    }
+  }
 }
 
 export default SearchROM

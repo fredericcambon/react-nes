@@ -6,7 +6,7 @@ import SearchROM from './SearchROM';
 
 
 class Menu extends React.Component {
-    onSearchFilter = roms => {
+  onSearchFilter = roms => {
         this.props.onSearchFilter( roms );
     }
 
@@ -24,21 +24,11 @@ class Menu extends React.Component {
         };
 
         return (
-            <div>
-                <nav className="navbar navbar-toggleable-md navbar-inverse bg-inverse">
-                  <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSearch" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                  </button>
-                  <a className="navbar-brand" href="#"><i className="fa fa-gamepad" aria-hidden="true"></i></a>
-                  <div className="collapse navbar-collapse" id="navbarSearch">
-                      <div className="col-8">
-                          <SearchROM onFilter={this.onSearchFilter} onSelect={this.onSearchSelect} onClose={this.onSearchClose} focus={this.props.focus} />
-                      </div>
-                  </div>
-                </nav>
-
-
+          <nav class="navbar navbar-dark bg-dark">
+            <div class="container">
+              <a class="navbar-brand" href="#">NES</a>
             </div>
+          </nav>
         )
     }
 

@@ -8,10 +8,10 @@ class ROMList extends React.Component {
         return (
             <div className="row" style={{marginTop: "2rem"}}>
                 {this.props.roms.map((rom, index) => (
-                    <ROMItem key={index} rom={rom} onClick={this.props.onROMSelected} />
+                    <ROMItem key={index} rom={rom} />
                 ))}
             </div>
-        )
+        );
     }
 
 }

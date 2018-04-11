@@ -1,9 +1,11 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 class ROMItem extends React.Component {
     render() {
         var cardStyle = {
-            marginBottom: '1rem'
+          marginBottom: '1rem',
+          width: '15rem'
         }
 
         var cardBackgroundStyle = {
@@ -16,16 +18,22 @@ class ROMItem extends React.Component {
 
         var cardFooterStyle = {}
 
-        return (
-            <div className="col-xs-12 col-sm-6 col-md-4 col-lg-2" style={cardStyle} onClick={() => {this.props.onClick( this.props.rom )}}>
-                <div className="card-block" style={cardBackgroundStyle}>
-                    <div style={{paddingTop: "100%"}}></div>
-                </div>
-                <div className="card-footer" style={cardFooterStyle}>
-                  <h5 className="card-title">{this.props.rom.label}</h5>
-                </div>
+      return (
+        <Link to={{
+          pathname: `/play/${this.props.rom.slug}`
+        }}>
+          <div class="col-sm-3">
+            <div className="card" style={cardStyle}>
+              <div className="card-block" style={cardBackgroundStyle}>
+                <div style={{paddingTop: "100%"}}></div>
+              </div>
+              <div className="card-footer" style={cardFooterStyle}>
+                <h5 className="card-title">{this.props.rom.label}</h5>
+              </div>
             </div>
-        )
+          </div>
+        </Link>
+      )
     }
 
 }
