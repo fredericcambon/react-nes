@@ -4,13 +4,16 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "dat.gui": "^0.7.1",
     "nes": "git://github.com/fredericcambon/nes.git",
     "pixi.js": "^4.7.3",
     "react": "^16.3.1",
+    "react-dat-gui": "^1.0.2",
     "react-dom": "^16.3.1",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.4",
-    "react-select": "^1.2.1"
+    "react-select": "^1.2.1",
+    "three": "^0.91.0"
   },
   "scripts": {
     "start": "react-scripts start",
