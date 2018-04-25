@@ -108,16 +108,14 @@ class Screen extends Observer {
 
   notify(t, e) {
     switch (t) {
-      case "frame-ready":
-        {
-          this.renderFrame(e);
-          break;
-        }
-      case "nes-reset":
-        {
-          this.resetMessage();
-          break;
-        }
+      case "frame-ready": {
+        this.renderFrame(e);
+        break;
+      }
+      case "nes-reset": {
+        this.resetMessage();
+        break;
+      }
     }
   }
 

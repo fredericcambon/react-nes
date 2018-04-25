@@ -45,8 +45,7 @@ class ThreeJSScreen extends Observer {
     this.renderer.setSize(width, height);
 
     this.texture = new THREE.DataTexture(
-      new Uint8Array(256 * 240 * 4)
-      .fill(255),
+      new Uint8Array(256 * 240 * 4).fill(255),
       256,
       240,
       THREE.RGBAFormat
@@ -83,15 +82,13 @@ class ThreeJSScreen extends Observer {
 
   notify(t, e) {
     switch (t) {
-      case "frame-ready":
-        {
-          this.renderFrame(e[0]);
-          break;
-        }
-      case "nes-reset":
-        {
-          break;
-        }
+      case "frame-ready": {
+        this.renderFrame(e[0]);
+        break;
+      }
+      case "nes-reset": {
+        break;
+      }
     }
   }
 

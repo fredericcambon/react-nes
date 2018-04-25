@@ -3,3 +3,4 @@ src/utils/constants.js
 data/
 node_modules/
 dist/
+build/
