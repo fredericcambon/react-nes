@@ -14,6 +14,9 @@ class ThreeJSScreen extends Observer {
     this.console = props.console;
     this.console.addObserver(this);
 
+    // Set the proper rendering mode
+    this.console.ppu.setRenderingMode(1);
+
     // Status
     this.state = {
       isPaused: false,
@@ -130,6 +133,12 @@ class ThreeJSScreen extends Observer {
     mesh.visible = true;
   }
 
+  _hideSpriteMeshes(i) {
+    for (; i < this.spriteMeshes.length; i++) {
+      this.spriteMeshes[i].visible = false;
+    }
+  }
+
   renderFrame(fullData, backgroundData, spritesData, colorData) {
     this.controls.update();
 
@@ -143,20 +152,14 @@ class ThreeJSScreen extends Observer {
           if (spritesData[this.i * 4] !== -1) {
             this.updateSpriteMesh(
               this.spriteMeshes[this.activeSpriteMesh],
-              this.getColor(fullData, this.i * 4)
+              this.getColor(spritesData, this.i * 4)
             );
             this.activeSpriteMesh++;
           }
         }
       }
 
-      for (
-        ;
-        this.activeSpriteMesh < this.spriteMeshes.length;
-        this.activeSpriteMesh++
-      ) {
-        this.spriteMeshes[this.activeSpriteMesh].visible = false;
-      }
+      this._hideSpriteMeshes(this.activeSpriteMesh);
     } else {
       this.backgroundTexture.image.data = fullData;
     }
@@ -167,10 +170,6 @@ class ThreeJSScreen extends Observer {
 
   onFullScreenClick = () => {
     this.refs.canvasDst.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
-    //camera.aspect = window.innerWidth / window.innerHeight;
-    //camera.updateProjectionMatrix();
-    // Try this
-    //renderer.setSize( window.innerWidth, window.innerHeight );
   };
 
   onPauseClick = () => {
@@ -199,6 +198,11 @@ class ThreeJSScreen extends Observer {
 
   onDatGuiUpdate(datGui) {
     this.setState({ datGui });
+    this.console.ppu.setRenderingMode(datGui.use3DSprites ? 1 : 0);
+
+    if (!datGui.use3DSprites) {
+      this._hideSpriteMeshes(0);
+    }
   }
 
   render() {

@@ -3,12 +3,19 @@ import Console from "nes";
 
 import React from "react";
 import { withRouter } from "react-router";
+import Dropdown from "react-dropdown";
+import "react-dropdown/style.css";
 
 import Screen from "./Screen";
 import ThreeJS3DScreen from "./ThreeJS3DScreen";
+import ThreeJSScreen from "./ThreeJSScreen.js";
 import Menu from "./Menu";
 import HelpModal from "./HelpModal";
 import { ROMS } from "../utils/constants";
+
+const SCREEN_RENDERER = "Default";
+const THREEJS_RENDERER = "ThreeJS";
+const THREEJS_3D_RENDERER = "ThreeJS 3D";
 
 class NES extends React.Component {
   /*
@@ -20,11 +27,19 @@ class NES extends React.Component {
 
     this.rom = ROMS[_.findIndex(ROMS, ["slug", this.props.match.params.game])];
     this.console = new Console();
+
+    // FIXME
     //this.props.router.setRouteLeaveHook( this.props.route, () => {
     //  return 'You have an ongoing game, are you sure you want to leave this page?';
     //} );
+    this.renderers = {
+      [SCREEN_RENDERER]: Screen,
+      [THREEJS_RENDERER]: ThreeJSScreen,
+      [THREEJS_3D_RENDERER]: ThreeJS3DScreen
+    };
     this.state = {
-      showHelpModal: false
+      showHelpModal: false,
+      renderer: SCREEN_RENDERER
     };
   }
 
@@ -44,13 +59,15 @@ class NES extends React.Component {
     this.console.stop();
   }
 
+  _onRendererSelected(option) {
+    this.setState({
+      renderer: option.value
+    });
+  }
+
   render() {
-    var cardBackgroundStyle = {
-      //  width: "100%",
-      //    height: "100%",
-      //  backgroundImage: 'url(' + this.rom.cover + ')',
-      //      backgroundSize: "cover"
-    };
+    const Renderer = this.renderers[this.state.renderer];
+    const renderersNames = Object.keys(this.renderers);
 
     return (
       <div>
@@ -62,6 +79,13 @@ class NES extends React.Component {
         />
         <div className="jumbotron" style={{ margin: "1rem" }}>
           <div className="container-fluid">
+            <Dropdown
+              options={renderersNames}
+              onChange={this._onRendererSelected.bind(this)}
+              value={{ SCREEN_RENDERER }}
+              placeholder="Select an option"
+            />
+
             <div className="row">
               <div className="col-lg-12">
                 <h1 className="page-header">{this.rom.label}</h1>
@@ -69,7 +93,7 @@ class NES extends React.Component {
             </div>
             <div className="row" style={{ paddingTop: "20px" }}>
               <div className="col-xl-8" style={{ padding: 0 }}>
-                <ThreeJS3DScreen
+                <Renderer
                   console={this.console}
                   onHelpClick={() => {
                     this.setState({ showHelpModal: true });
