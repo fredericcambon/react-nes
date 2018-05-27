@@ -1,4 +1,5 @@
 import Observer from "./Observer";
+import BaseRenderer from "./BaseRenderer.js";
 import React from "react";
 import {
   BaseTexture,
@@ -8,27 +9,18 @@ import {
   Container
 } from "pixi.js";
 
-class Screen extends Observer {
+class Screen extends React.Component {
   /*
    * Handles the display of the NES at each frame
    */
   constructor(props) {
     super(props);
     this.console = props.console;
+  }
 
-    this.console.addObserver(this);
-
-    // Status
-    this.state = {
-      isPaused: false
-    };
-
-    // Counters to monitor framerate
-    this.frameCounter = 0;
-    this.lastFpsTime = 0;
-    this.fps = 0;
-
+  componentDidMount() {
     // Special messages to display
+    this.fps = 0;
     this.texts = [];
     this.texts.push({
       msg: () => {
@@ -40,8 +32,8 @@ class Screen extends Observer {
     });
   }
 
-  componentDidMount() {
-    var width = this.refs.canvasDst.offsetWidth;
+  onInitCanvas(canvas) {
+    var width = canvas.offsetWidth;
     var height = width * 3 / 4;
 
     this.offscreenCanvas = document.createElement("canvas");
@@ -52,10 +44,8 @@ class Screen extends Observer {
     this.canvasContext.font = "10px Arial";
     this.canvasImage = this.canvasContext.getImageData(0, 0, 256, 240);
 
-    this.interval = setInterval(this.fpsLogger.bind(this), 1000);
-
     this.renderer = new WebGLRenderer(width, height, {
-      view: this.refs.canvasDst
+      view: canvas
     });
 
     this.container = new Container();
@@ -66,12 +56,9 @@ class Screen extends Observer {
     this.container.addChild(this.sprite);
   }
 
-  componentWillUnmount() {
-    clearInterval(this.interval);
-  }
+  componentWillUnmount() {}
 
-  renderFrame(data) {
-    this.frameCounter++;
+  onRenderFrame(data) {
     this.canvasImage.data.set(data);
     this.canvasContext.putImageData(this.canvasImage, 0, 0);
 
@@ -94,105 +81,42 @@ class Screen extends Observer {
     this.renderer.render(this.container);
   }
 
-  resetMessage() {
-    this.texts.push({
-      msg: () => {
-        return "Game Loaded";
-      },
-      x: 256 / 2 - 42,
-      y: 240 / 2,
-      font: "bold 14px Arial",
-      timeout: 120
-    });
-  }
-
-  notify(t, e) {
+  onMessage(t) {
     switch (t) {
-      case "frame-ready": {
-        this.renderFrame(...e);
-        break;
-      }
       case "nes-reset": {
-        this.resetMessage();
+        this.texts.push({
+          msg: () => {
+            return "Game Loaded";
+          },
+          x: 256 / 2 - 42,
+          y: 240 / 2,
+          font: "bold 14px Arial",
+          timeout: 120
+        });
         break;
       }
     }
   }
 
-  fpsLogger() {
-    var now = new Date();
-
-    this.fps = parseInt(this.frameCounter / ((now - this.lastFpsTime) / 1000));
-    this.frameCounter = 0;
-    this.lastFpsTime = now;
+  onUpdateMeta(metadata) {
+    this.fps = metadata.fps;
   }
 
   onFullScreenClick = () => {
     this.refs.canvasDst.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
   };
 
-  onHelpClick = () => {
-    this.props.onHelpClick();
-  };
-
-  onPauseClick = () => {
-    if (!this.state.isPaused) {
-      this.console.stop();
-    } else {
-      this.console.start();
-    }
-
-    this.setState({
-      isPaused: !this.state.isPaused
-    });
-  };
-
   render() {
     return (
       <div>
-        <canvas
-          className="nes-screen-canvas"
-          ref="canvasDst"
-          style={{ width: "100%", height: "100%" }}
+        <BaseRenderer
+          console={this.console}
+          onInitCanvas={this.onInitCanvas.bind(this)}
+          onRenderFrame={this.onRenderFrame.bind(this)}
+          onFullScreenClick={this.onFullScreenClick}
+          onMessage={this.onMessage.bind(this)}
+          onUpdateMeta={this.onUpdateMeta.bind(this)}
         />
-        <div
-          id="overlay"
-          style={{
-            position: "absolute",
-            bottom: 0,
-            left: 0,
-            right: 0,
-            zIndex: 2,
-            height: "3rem"
-          }}
-        >
-          <div
-            className="fa-stack fa-lg pull-right"
-            onClick={this.onFullScreenClick}
-          >
-            <i className="fa fa-square fa-stack-2x" />
-            <i className="fa fa-expand fa-stack-1x fa-inverse" />
-          </div>
-          <div
-            className="fa-stack fa-lg pull-right"
-            onClick={this.onPauseClick}
-          >
-            <i className="fa fa-square fa-stack-2x" />
-            {this.state.isPaused ? (
-              <i className="fa fa-play fa-stack-1x fa-inverse" />
-            ) : (
-              <i className="fa fa-pause fa-stack-1x fa-inverse" />
-            )}
-          </div>
-          <div className="fa-stack fa-lg pull-right">
-            <i className="fa fa-square fa-stack-2x" />
-            <i className="fa fa-floppy-o fa-stack-1x fa-inverse" />
-          </div>
-          <div className="fa-stack fa-lg pull-right" onClick={this.onHelpClick}>
-            <i className="fa fa-square fa-stack-2x" />
-            <i className="fa fa-question fa-stack-1x fa-inverse" />
-          </div>
-        </div>
       </div>
     );
   }

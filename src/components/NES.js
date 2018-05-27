@@ -6,12 +6,13 @@ import { withRouter } from "react-router";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 
+import CheatItem from "./CheatItem";
+import InfoItem from "./InfoItem";
 import Screen from "./Screen";
 import ThreeJS3DScreen from "./ThreeJS3DScreen";
 import ThreeJSScreen from "./ThreeJSScreen.js";
 import Menu from "./Menu";
-import HelpModal from "./HelpModal";
-import { ROMS } from "../utils/constants";
+import { ROMS, CHEATS, INFOS } from "../utils/constants";
 
 const SCREEN_RENDERER = "Default";
 const THREEJS_RENDERER = "ThreeJS";
@@ -26,7 +27,12 @@ class NES extends React.Component {
     super(props);
 
     this.rom = ROMS[_.findIndex(ROMS, ["slug", this.props.match.params.game])];
+    this.cheats = CHEATS[this.props.match.params.game];
+    this.infos = INFOS[this.props.match.params.game];
     this.console = new Console();
+
+    // For debug purposes
+    window.nes = this.console;
 
     // FIXME
     //this.props.router.setRouteLeaveHook( this.props.route, () => {
@@ -38,7 +44,6 @@ class NES extends React.Component {
       [THREEJS_3D_RENDERER]: ThreeJS3DScreen
     };
     this.state = {
-      showHelpModal: false,
       renderer: SCREEN_RENDERER
     };
   }
@@ -59,7 +64,7 @@ class NES extends React.Component {
     this.console.stop();
   }
 
-  _onRendererSelected(option) {
+  onRendererSelected(option) {
     this.setState({
       renderer: option.value
     });
@@ -67,38 +72,46 @@ class NES extends React.Component {
 
   render() {
     const Renderer = this.renderers[this.state.renderer];
-    const renderersNames = Object.keys(this.renderers);
+    const dropdownOptions = _.map(Object.keys(this.renderers), r => {
+      return { value: r, label: r };
+    });
 
     return (
       <div>
-        <HelpModal
-          show={this.state.showHelpModal}
-          onClose={() => {
-            this.setState({ showHelpModal: false });
-          }}
-        />
         <div className="jumbotron" style={{ margin: "1rem" }}>
           <div className="container-fluid">
-            <Dropdown
-              options={renderersNames}
-              onChange={this._onRendererSelected.bind(this)}
-              value={{ SCREEN_RENDERER }}
-              placeholder="Select an option"
-            />
-
             <div className="row">
               <div className="col-lg-12">
                 <h1 className="page-header">{this.rom.label}</h1>
               </div>
             </div>
             <div className="row" style={{ paddingTop: "20px" }}>
-              <div className="col-xl-8" style={{ padding: 0 }}>
-                <Renderer
-                  console={this.console}
-                  onHelpClick={() => {
-                    this.setState({ showHelpModal: true });
-                  }}
+              <div className="col-xl-8">
+                <Renderer console={this.console} />
+              </div>
+              <div className="col-xl-4">
+                <h4>Renderer</h4>
+                <Dropdown
+                  options={dropdownOptions}
+                  onChange={this.onRendererSelected.bind(this)}
+                  value={this.state.renderer}
                 />
+                <h4>Cheats</h4>
+                <ul className="list-group">
+                  {this.cheats.map((cheat, index) => (
+                    <CheatItem
+                      key={index}
+                      cheat={cheat}
+                      console={this.console}
+                    />
+                  ))}
+                </ul>
+                <h4>Infos</h4>
+                <ul className="list-group">
+                  {this.infos.map((info, index) => (
+                    <InfoItem key={index} info={info} console={this.console} />
+                  ))}
+                </ul>
               </div>
             </div>
           </div>

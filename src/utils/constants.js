@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 export var TOP_ROMS = [1, 2, 3, 4, 5];
 
 // Still more reliable than MongoDB
@@ -98,6 +100,62 @@ export var ROMS = [
     filepath: "mega-man-2.nes"
   }
 ];
+
+export var CHEATS = {
+  "super-mario-bros": [
+    {
+      title: "Moar lives",
+      addr: 0x075a,
+      value: 0x08
+    },
+    {
+      title: "Invicinbility",
+      addr: 0x079f,
+      value: 0x10
+    },
+    {
+      title: "Shrooms",
+      addr: 0x0754,
+      value: 0x00
+    },
+    {
+      title: "FIRE!",
+      addr: 0x0756,
+      value: 0x02
+    }
+  ]
+};
+
+export var INFOS = {
+  "super-mario-bros": [
+    {
+      title: "Remaining Lives",
+      value: c => {
+        return c.cpu.memory.read8(0x075a) + 1;
+      }
+    },
+    {
+      title: "Coins",
+      value: 0x075e
+    },
+    {
+      title: "Time",
+      value: c => {
+        return _.map([0x07f8, 0x07f9, 0x07fa], a => {
+          return c.cpu.memory.read8(a);
+        });
+      }
+    },
+    {
+      title: "Visible monsters",
+      value: c => {
+        return _.map([0x0016, 0x0017, 0x0018, 0x0019, 0x001a], a => {
+          return c.cpu.memory.read8(a);
+        });
+      }
+    }
+  ]
+};
 
 export var DEBUG_ROMS = [
   {

@@ -1,4 +1,5 @@
 import React from "react";
+import $ from "jquery";
 
 class Modal extends React.Component {
   constructor(props) {
@@ -7,7 +8,7 @@ class Modal extends React.Component {
 
   componentWillReceiveProps(props) {
     if (props.show) {
-      //$( this.refs.modal ).modal( 'show' );
+      $(this.refs.modal).modal("show");
     }
   }
 

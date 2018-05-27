@@ -119,6 +119,10 @@ class ThreeJSScreen extends Observer {
     }
   }
 
+  componentWillUnmount() {
+    this.console.removeObserver(this);
+  }
+
   getColor(data, i) {
     return (data[i] << 16) + (data[i + 1] << 8) + data[i + 2];
   }

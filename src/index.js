@@ -1,16 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {
-  Route,
-  BrowserRouter,
-  Switch
-} from 'react-router-dom';
-import DebugNES from './components/DebugNES';
+import React from "react";
+import ReactDOM from "react-dom";
+import { Route, BrowserRouter, Switch } from "react-router-dom";
+import DebugNES from "./components/DebugNES";
 
-import NES from './components/NES';
-import Grid from './components/Grid';
-import Menu from './components/Menu';
+import NES from "./components/NES";
+import Grid from "./components/Grid";
+import Menu from "./components/Menu";
 
+// Because jQuery must be loeaded before bootstrap ...
+window.jQuery = window.$ = require("jquery/dist/jquery.min");
+require("bootstrap/dist/js/bootstrap.min.js");
 
 ReactDOM.render(
   <BrowserRouter>
@@ -22,9 +21,11 @@ ReactDOM.render(
         <Route path="/debug" component={DebugNES} />
       </Switch>
       <footer>
-        <p className="text-center text-white">© 2017 NES Emulator. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+        <p className="text-center text-white">
+          © 2018 NES Emulator. · <a href="#">Privacy</a> · <a href="#">Terms</a>
+        </p>
       </footer>
     </div>
   </BrowserRouter>,
-  document.getElementById( 'root' )
-)
+  document.getElementById("root")
+);
