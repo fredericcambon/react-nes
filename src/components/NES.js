@@ -27,8 +27,8 @@ class NES extends React.Component {
     super(props);
 
     this.rom = ROMS[_.findIndex(ROMS, ["slug", this.props.match.params.game])];
-    this.cheats = CHEATS[this.props.match.params.game];
-    this.infos = INFOS[this.props.match.params.game];
+    this.cheats = CHEATS[this.props.match.params.game] || [];
+    this.infos = INFOS[this.props.match.params.game] || [];
     this.console = new Console();
 
     // For debug purposes
@@ -44,7 +44,7 @@ class NES extends React.Component {
       [THREEJS_3D_RENDERER]: ThreeJS3DScreen
     };
     this.state = {
-      renderer: SCREEN_RENDERER
+      renderer: THREEJS_RENDERER
     };
   }
 

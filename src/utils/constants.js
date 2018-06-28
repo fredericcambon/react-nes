@@ -98,6 +98,13 @@ export var ROMS = [
     slug: "mega-man-2",
     cover: "",
     filepath: "mega-man-2.nes"
+  },
+  {
+    value: 13,
+    label: "Super Mario Bros 3",
+    slug: "super-mario-bros-3",
+    cover: "",
+    filepath: "mario-3.nes"
   }
 ];
 
@@ -122,6 +129,13 @@ export var CHEATS = {
       title: "FIRE!",
       addr: 0x0756,
       value: 0x02
+    }
+  ],
+  "super-mario-bros-3": [
+    {
+      title: "Infinite Lives",
+      addr: 0x0736,
+      value: 0x63
     }
   ]
 };

@@ -2,6 +2,8 @@ import Observer from "./Observer";
 import React from "react";
 import HelpModal from "./HelpModal";
 
+import "./BaseRenderer.css";
+
 class BaseRenderer extends Observer {
   /*
    * Base component to handle the display of the NES at each frame
@@ -49,7 +51,7 @@ class BaseRenderer extends Observer {
         this.props.onRenderFrame(...e);
         break;
       }
-      case "nes-reset": {
+      default: {
         this.props.onMessage(t);
         break;
       }
@@ -65,6 +67,18 @@ class BaseRenderer extends Observer {
 
     this.props.onUpdateMeta({ fps: this.fps });
   }
+
+  onFullScreenClick = () => {
+    this.refs.canvasDst.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+  };
+
+  onSaveClick = () => {
+    this.console.quickSave();
+  };
+
+  onLoadClick = () => {
+    this.console.loadQuickSave();
+  };
 
   onPauseClick = () => {
     if (!this.state.isPaused) {
@@ -96,8 +110,7 @@ class BaseRenderer extends Observer {
           id="overlay"
           style={{
             position: "absolute",
-            bottom: 0,
-            left: 0,
+            bottom: 5,
             right: 21,
             zIndex: 2,
             height: "3rem"
@@ -105,11 +118,14 @@ class BaseRenderer extends Observer {
         >
           <div
             className="fa-stack fa-lg pull-right"
-            onClick={this.props.onFullScreenClick}
+            onClick={() => {
+              this.setState({ showHelpModal: true });
+            }}
           >
             <i className="fa fa-square fa-stack-2x" />
-            <i className="fa fa-expand fa-stack-1x fa-inverse" />
+            <i className="fa fa-question fa-stack-1x fa-inverse" />
           </div>
+
           <div
             className="fa-stack fa-lg pull-right"
             onClick={this.onPauseClick}
@@ -121,18 +137,22 @@ class BaseRenderer extends Observer {
               <i className="fa fa-pause fa-stack-1x fa-inverse" />
             )}
           </div>
-          <div className="fa-stack fa-lg pull-right">
+          <div className="fa-stack fa-lg pull-right" onClick={this.onSaveClick}>
             <i className="fa fa-square fa-stack-2x" />
-            <i className="fa fa-floppy-o fa-stack-1x fa-inverse" />
+            <i className="fa fa-save fa-stack-1x fa-inverse" />
           </div>
+
+          <div className="fa-stack fa-lg pull-right" onClick={this.onLoadClick}>
+            <i className="fa fa-square fa-stack-2x" />
+            <i className="fa fa-sync-alt fa-stack-1x fa-inverse" />
+          </div>
+
           <div
             className="fa-stack fa-lg pull-right"
-            onClick={() => {
-              this.setState({ showHelpModal: true });
-            }}
+            onClick={this.onFullScreenClick}
           >
             <i className="fa fa-square fa-stack-2x" />
-            <i className="fa fa-question fa-stack-1x fa-inverse" />
+            <i className="fa fa-expand fa-stack-1x fa-inverse" />
           </div>
         </div>
       </div>

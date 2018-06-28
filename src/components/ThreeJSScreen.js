@@ -1,29 +1,25 @@
 import Observer from "./Observer";
 import React from "react";
+import BaseRenderer from "./BaseRenderer.js";
 import * as THREE from "three";
 
-class ThreeJSScreen extends Observer {
+class ThreeJSScreen extends React.Component {
   constructor(props) {
     super(props);
     this.console = props.console;
-    this.console.addObserver(this);
 
     // Status
     this.state = {
-      isPaused: false
+      isPaused: false,
+      fps: 0
     };
-
-    // Counters to monitor framerate
-    this.frameCounter = 0;
-    this.lastFpsTime = 0;
-    this.fps = 0;
 
     // Special messages to display
     this.texts = [];
   }
 
-  componentDidMount() {
-    var width = this.refs.canvasDst.offsetWidth;
+  onInitCanvas(canvas) {
+    var width = canvas.offsetWidth;
     var height = width * 3 / 4;
 
     this.scene = new THREE.Scene();
@@ -37,7 +33,7 @@ class ThreeJSScreen extends Observer {
     );
 
     this.renderer = new THREE.WebGLRenderer({
-      canvas: this.refs.canvasDst
+      canvas: canvas
     });
     this.renderer.setSize(width, height);
 
@@ -62,79 +58,70 @@ class ThreeJSScreen extends Observer {
     this.scene.add(this.cube);
   }
 
-  renderFrame(data) {
+  onRenderFrame(data) {
     this.texture.image.data = data;
     this.texture.needsUpdate = true;
 
     this.renderer.render(this.scene, this.camera);
   }
 
-  onFullScreenClick = () => {
-    this.refs.canvasDst.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
-    //camera.aspect = window.innerWidth / window.innerHeight;
-    //camera.updateProjectionMatrix();
-    // Try this
-    //renderer.setSize( window.innerWidth, window.innerHeight );
-  };
+  onUpdateMeta(metadata) {
+    this.setState({ fps: metadata.fps });
+  }
 
-  notify(t, e) {
+  onMessage(t) {
     switch (t) {
-      case "frame-ready": {
-        this.renderFrame(e[0]);
+      case "nes-quick-save": {
+        this.setState({ message: "Game Saved" });
         break;
       }
+      case "nes-quick-load":
       case "nes-reset": {
+        this.setState({ message: "Game Loaded" });
         break;
       }
     }
+
+    setTimeout(() => {
+      this.setState({ message: "" });
+    }, 2000);
   }
 
   render() {
+    var fpsStyle = {
+      position: "absolute",
+      top: 10,
+      left: 21,
+      textAlign: "left",
+      zIndex: "100",
+      display: "block"
+    };
+
+    var messageStyle = {
+      position: "absolute",
+      left: "40%",
+      top: "50%",
+      textAlign: "center",
+      fontSize: 24,
+      fontWeight: "bold"
+    };
+
     return (
       <div>
-        <canvas
-          className="nes-screen-canvas"
-          ref="canvasDst"
-          style={{ width: "100%", height: "100%" }}
-        />
-        <div
-          id="overlay"
-          style={{
-            position: "absolute",
-            bottom: 0,
-            left: 0,
-            right: 0,
-            zIndex: 2,
-            height: "3rem"
-          }}
-        >
-          <div
-            className="fa-stack fa-lg pull-right"
-            onClick={this.onFullScreenClick}
-          >
-            <i className="fa fa-square fa-stack-2x" />
-            <i className="fa fa-expand fa-stack-1x fa-inverse" />
-          </div>
-          <div
-            className="fa-stack fa-lg pull-right"
-            onClick={this.onPauseClick}
-          >
-            <i className="fa fa-square fa-stack-2x" />
-            {this.state.isPaused ? (
-              <i className="fa fa-play fa-stack-1x fa-inverse" />
-            ) : (
-              <i className="fa fa-pause fa-stack-1x fa-inverse" />
-            )}
-          </div>
-          <div className="fa-stack fa-lg pull-right">
-            <i className="fa fa-square fa-stack-2x" />
-            <i className="fa fa-floppy-o fa-stack-1x fa-inverse" />
-          </div>
-          <div className="fa-stack fa-lg pull-right" onClick={this.onHelpClick}>
-            <i className="fa fa-square fa-stack-2x" />
-            <i className="fa fa-question fa-stack-1x fa-inverse" />
-          </div>
+        <div id="fps" style={fpsStyle}>
+          {this.state.fps} FPS
         </div>
+        <div id="message" style={messageStyle}>
+          {this.state.message}
+        </div>
+
+        <BaseRenderer
+          console={this.console}
+          onInitCanvas={this.onInitCanvas.bind(this)}
+          onRenderFrame={this.onRenderFrame.bind(this)}
+          onMessage={this.onMessage.bind(this)}
+          onUpdateMeta={this.onUpdateMeta.bind(this)}
+        />
       </div>
     );
   }

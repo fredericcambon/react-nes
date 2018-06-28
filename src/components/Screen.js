@@ -83,6 +83,19 @@ class Screen extends React.Component {
 
   onMessage(t) {
     switch (t) {
+      case "nes-quick-save": {
+        this.texts.push({
+          msg: () => {
+            return "Game Saved";
+          },
+          x: 256 / 2 - 42,
+          y: 240 / 2,
+          font: "bold 14px Arial",
+          timeout: 60
+        });
+        break;
+      }
+      case "nes-quick-load":
       case "nes-reset": {
         this.texts.push({
           msg: () => {
@@ -91,7 +104,7 @@ class Screen extends React.Component {
           x: 256 / 2 - 42,
           y: 240 / 2,
           font: "bold 14px Arial",
-          timeout: 120
+          timeout: 60
         });
         break;
       }
@@ -102,10 +115,6 @@ class Screen extends React.Component {
     this.fps = metadata.fps;
   }
 
-  onFullScreenClick = () => {
-    this.refs.canvasDst.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
-  };
-
   render() {
     return (
       <div>
@@ -113,7 +122,6 @@ class Screen extends React.Component {
           console={this.console}
           onInitCanvas={this.onInitCanvas.bind(this)}
           onRenderFrame={this.onRenderFrame.bind(this)}
-          onFullScreenClick={this.onFullScreenClick}
           onMessage={this.onMessage.bind(this)}
           onUpdateMeta={this.onUpdateMeta.bind(this)}
         />
