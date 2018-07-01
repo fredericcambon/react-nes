@@ -1,6 +1,6 @@
 import React from "react";
 import Select from "react-select";
-import Console from "nes";
+import { Console } from "nes-emulator";
 
 import { DEBUG_ROMS } from "../utils/constants";
 

@@ -1,5 +1,5 @@
 import _ from "lodash";
-import Console from "nes";
+import { Console } from "nes-emulator";
 
 import React from "react";
 import { withRouter } from "react-router";
@@ -13,7 +13,7 @@ import ThreeJS3DScreen from "./ThreeJS3DScreen";
 import ThreeJSScreen from "./ThreeJSScreen.js";
 import Menu from "./Menu";
 import { ROMS, CHEATS, INFOS } from "../utils/constants";
-
+import fetchROM from "../utils/Request";
 const SCREEN_RENDERER = "Default";
 const THREEJS_RENDERER = "ThreeJS";
 const THREEJS_3D_RENDERER = "ThreeJS 3D";
@@ -49,8 +49,9 @@ class NES extends React.Component {
   }
 
   boot() {
-    this.console.loadROM(this.rom.filepath).then(
+    fetchROM(this.rom.filepath).then(
       function(res) {
+        this.console.loadROM(res.data);
         this.console.start();
       }.bind(this)
     );

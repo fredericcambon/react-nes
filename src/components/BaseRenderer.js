@@ -2,8 +2,6 @@ import Observer from "./Observer";
 import React from "react";
 import HelpModal from "./HelpModal";
 
-import "./BaseRenderer.css";
-
 class BaseRenderer extends Observer {
   /*
    * Base component to handle the display of the NES at each frame
