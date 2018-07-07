@@ -1,10 +1,10 @@
 import _ from "lodash";
-import { Console } from "nes-emulator";
-
 import React from "react";
 import { withRouter } from "react-router";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
+
+import { Console } from "nes-emulator";
 
 import CheatItem from "./CheatItem";
 import InfoItem from "./InfoItem";
