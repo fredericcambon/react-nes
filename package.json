@@ -6,6 +6,7 @@
     "axios": "^0.18.0",
     "bootstrap": "^4.1.1",
     "dat.gui": "^0.7.1",
+    "express": "^4.16.3",
     "jquery": "^3.3.1",
     "nes-emulator": "^1.0.4",
     "pixi.js": "^4.7.3",
