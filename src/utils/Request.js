@@ -1,9 +1,10 @@
 import axios from "axios";
+import settings from "../config/settings";
 
-export default function fetchROM(path, full) {
+export default function fetchROM(path) {
   return axios({
     method: "get",
-    url: full ? path : "/data/" + path,
+    url: settings.MEDIA_HOST + "/roms/" + path,
     responseType: "arraybuffer"
   });
 }
