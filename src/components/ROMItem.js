@@ -19,11 +19,7 @@ class ROMItem extends React.Component {
     var cardFooterStyle = {};
 
     return (
-      <Link
-        to={{
-          pathname: `/play/${this.props.rom.slug}`
-        }}
-      >
+      <Link to={`/play/${this.props.rom.slug}`}>
         <div class="col-sm-3">
           <div className="card" style={cardStyle}>
             <div className="card-block" style={cardBackgroundStyle}>

@@ -12,22 +12,19 @@ class Grid extends React.Component {
     this.topRoms = getTopRoms();
 
     this.state = {
-      roms: this.topRoms,
-      title: "Top Games"
+      roms: this.topRoms
     };
   }
 
   onSearchFilter = roms => {
     this.setState({
-      roms: roms,
-      title: "Search Results"
+      roms: roms
     });
   };
 
   onSearchClose = () => {
     this.setState({
-      roms: this.topRoms,
-      title: "Top Games"
+      roms: this.topRoms
     });
   };
 
@@ -58,11 +55,7 @@ class Grid extends React.Component {
           style={{ margin: "1rem", "background-color": "#333" }}
         >
           <div className="container-fluid">
-            <div className="row">
-              <div className="col-lg-12">
-                <h4 className="text-white">{this.state.title}</h4>
-              </div>
-            </div>
+            <div className="row justify-content-center" />
             <ROMList roms={this.state.roms} />
           </div>
         </div>

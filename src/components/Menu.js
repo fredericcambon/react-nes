@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import ROMList from "./ROMList";
 import SearchROM from "./SearchROM";
@@ -23,9 +24,9 @@ class Menu extends React.Component {
 
     return (
       <nav className="navbar navbar-dark bg-dark">
-        <div className="container">
-          <a className="navbar-brand" href="#">
-            NES
+        <div className="container-fluid">
+          <a className="navbar-brand">
+            <Link to="/">NES</Link>
           </a>
         </div>
       </nav>

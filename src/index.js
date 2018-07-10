@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Route, BrowserRouter, Switch } from "react-router-dom";
+import { Link, Route, BrowserRouter, Switch } from "react-router-dom";
 import DebugNES from "./components/DebugNES";
 
 import NES from "./components/NES";
@@ -22,7 +22,8 @@ ReactDOM.render(
       </Switch>
       <footer>
         <p className="text-center text-white">
-          © 2018 NES Emulator. · <a href="#">Privacy</a> · <a href="#">Terms</a>
+          2018 NES Emulator. <Link to="/terms">Terms</Link> ·{" "}
+          <Link to="/about">About</Link>
         </p>
       </footer>
     </div>
