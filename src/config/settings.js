@@ -1,3 +1,3 @@
 export default {
-  MEDIA_HOST: "http://grun7.com"
+  MEDIA_HOST: "https://grun7.com"
 };
