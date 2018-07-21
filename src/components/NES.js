@@ -29,7 +29,7 @@ class NES extends React.Component {
     this.rom = ROMS[_.findIndex(ROMS, ["slug", this.props.match.params.game])];
     this.cheats = CHEATS[this.props.match.params.game] || [];
     this.infos = INFOS[this.props.match.params.game] || [];
-    this.console = new Console();
+    this.console = new Console(60);
 
     // For debug purposes
     window.nes = this.console;

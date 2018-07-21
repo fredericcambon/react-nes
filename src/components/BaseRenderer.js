@@ -15,6 +15,7 @@ class BaseRenderer extends Observer {
     // Status
     this.state = {
       isPaused: false,
+      fps: 0,
       showHelpModal: false
     };
 
@@ -50,7 +51,7 @@ class BaseRenderer extends Observer {
         break;
       }
       default: {
-        this.props.onMessage(t);
+        this.onMessage(t);
         break;
       }
     }
@@ -63,7 +64,7 @@ class BaseRenderer extends Observer {
     this.frameCounter = 0;
     this.lastFpsTime = now;
 
-    this.props.onUpdateMeta({ fps: this.fps });
+    this.setState({ fps: this.fps });
   }
 
   onFullScreenClick = () => {
@@ -90,9 +91,51 @@ class BaseRenderer extends Observer {
     });
   };
 
+  onMessage(t) {
+    switch (t) {
+      case "nes-quick-save": {
+        this.setState({ message: "Game Saved" });
+        break;
+      }
+      case "nes-quick-load":
+      case "nes-reset": {
+        this.setState({ message: "Game Loaded" });
+        break;
+      }
+    }
+
+    setTimeout(() => {
+      this.setState({ message: "" });
+    }, 2000);
+  }
+
   render() {
+    const fpsStyle = {
+      position: "absolute",
+      top: 10,
+      left: 21,
+      textAlign: "left",
+      zIndex: "100",
+      display: "block"
+    };
+    const messageStyle = {
+      position: "absolute",
+      left: "40%",
+      top: "50%",
+      textAlign: "center",
+      fontSize: 24,
+      fontWeight: "bold"
+    };
+
     return (
       <div>
+        <div id="fps" style={fpsStyle}>
+          {this.state.fps} FPS
+        </div>
+        <div id="message" style={messageStyle}>
+          {this.state.message}
+        </div>
+
         <HelpModal
           show={this.state.showHelpModal}
           onClose={() => {
@@ -100,7 +143,7 @@ class BaseRenderer extends Observer {
           }}
         />
         <canvas
-          className="nes-screen-canvas"
+          id="nes-screen-canvas"
           ref="canvasDst"
           style={{ width: "100%", height: "100%" }}
         />

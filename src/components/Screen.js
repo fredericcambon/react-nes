@@ -16,6 +16,8 @@ class Screen extends React.Component {
   constructor(props) {
     super(props);
     this.console = props.console;
+
+    this.console.ppu.setRenderingMode(0);
   }
 
   componentDidMount() {
@@ -34,7 +36,7 @@ class Screen extends React.Component {
 
   onInitCanvas(canvas) {
     var width = canvas.offsetWidth;
-    var height = width * 3 / 4;
+    var height = (width * 3) / 4;
 
     this.offscreenCanvas = document.createElement("canvas");
     this.offscreenCanvas.width = 256;
