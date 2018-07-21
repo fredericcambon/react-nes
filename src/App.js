@@ -15,7 +15,7 @@ ReactDOM.render(
 
     <footer>
       <p className="text-center">
-        © 2017 NES Emulator. · <a href="#">Privacy</a> · <a href="#">Terms</a>
+        © 2018 NES Emulator. · <a href="#">Privacy</a> · <a href="#">Terms</a>
       </p>
     </footer>
   </HashRouter>,
