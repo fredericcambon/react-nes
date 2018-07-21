@@ -1,5 +1,8 @@
 import _ from "lodash";
 
+export var NES_WIDTH = 256;
+export var NES_HEIGHT = 240;
+
 export var TOP_ROMS = [1, 2, 3, 4, 5];
 
 // Still more reliable than MongoDB
