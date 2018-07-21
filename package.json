@@ -8,7 +8,7 @@
     "dat.gui": "^0.7.1",
     "express": "^4.16.3",
     "jquery": "^3.3.1",
-    "nes-emulator": "^1.0.5",
+    "nes-emulator": "^1.0.7",
     "pixi.js": "^4.7.3",
     "react": "^16.3.1",
     "react-dat-gui": "^1.0.2",
