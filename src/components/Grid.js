@@ -30,29 +30,27 @@ class Grid extends React.Component {
 
   render() {
     return (
-      <div>
-        <div className="container mt-5">
-          <div className="row">
-            <div className="col-md-10 col-lg-8 col-xl-7 mx-auto">
-              <form>
-                <div className="form-row">
-                  <div className="col-12">
-                    <SearchROM
-                      onFilter={this.onSearchFilter}
-                      onSelect={this.onSearchSelect}
-                      onClose={this.onSearchClose}
-                      focus={this.props.focus}
-                    />
-                  </div>
+      <div className="container-fluid grid">
+        <div className="row">
+          <div className="col-md-10 col-lg-8 col-xl-7 mx-auto">
+            <form>
+              <div className="form-row">
+                <div className="col-12">
+                  <SearchROM
+                    onFilter={this.onSearchFilter}
+                    onSelect={this.onSearchSelect}
+                    onClose={this.onSearchClose}
+                    focus={this.props.focus}
+                  />
                 </div>
-              </form>
-            </div>
+              </div>
+            </form>
           </div>
         </div>
 
         <div
-          className="jumbotron"
-          style={{ margin: "1rem", "background-color": "#333" }}
+          className="jumbotron shadow mt-5 color3"
+          style={{ margin: "1rem" }}
         >
           <div className="container-fluid">
             <div className="row justify-content-center" />

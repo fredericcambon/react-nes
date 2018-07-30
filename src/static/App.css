@@ -1,0 +1,131 @@
+:root {
+  --color-1: #282a36;
+  --color-2: #282a36;
+  --color-3: #44475a;
+  --color-4: #ff5252;
+  --color-5: #ff5555;
+  --color-6: #f8f8f2;
+  --color-7: #6272a4;
+}
+
+.grid {
+  margin-top: 100px !important;
+}
+
+#wrap {
+  margin-bottom: 100px;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 95%;
+  /* Set the fixed height of the footer here */
+  height: 100px;
+}
+
+* {
+  border-radius: 0 !important;
+  font-family: "Roboto", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+.card-header {
+  font-family: "Roboto Condensed", sans-serif;
+}
+
+.form-control,
+.form-control:focus {
+  border-color: inherit;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  background-color: var(--color-3);
+}
+
+input:focus {
+  color: currentColor !important;
+}
+
+.strong-link {
+  text-decoration: underline;
+}
+
+a,
+a:hover,
+a:active {
+  color: white;
+  text-decoration: none;
+  font-weight: normal !important;
+}
+
+.card:hover {
+  box-shadow: 0 0.5rem 1rem rgba(255, 85, 85, 0.2) !important;
+}
+
+button:hover,
+.nav-link:hover {
+  background-color: var(--color-5) !important;
+  color: var(--color-6) !important;
+}
+
+.color1 {
+  background-color: var(--color-1) !important;
+}
+
+.color2 {
+  background-color: var(--color-2) !important;
+  color: var(--color-6);
+}
+
+.color3 {
+  background-color: var(--color-3) !important;
+  color: var(--color-6);
+}
+
+.colorText4 {
+  color: var(--color-4) !important;
+}
+
+.colorText5 {
+  color: var(--color-5);
+}
+
+.options-card-header {
+}
+
+.card-title {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.btn-round {
+  background-color: var(--color-4);
+  border-radius: 999em !important;
+  width: 56px;
+  height: 56px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26) !important;
+  line-height: 1;
+  font-size: 28px;
+  position: relative;
+  cursor: pointer;
+}
+
+.btn-round span {
+  position: absolute;
+  left: 0;
+  top: 55%;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  margin-top: -18px;
+  color: #FFF;
+}
+
+.btn-round:hover {
+  transform: scale(1.1);
+}

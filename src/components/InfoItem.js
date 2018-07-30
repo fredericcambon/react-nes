@@ -21,7 +21,7 @@ class InfoItem extends React.Component {
 
   render() {
     return (
-      <p>
+      <p className="pl-3">
         {this.props.info.title}: {this.state.value}
       </p>
     );

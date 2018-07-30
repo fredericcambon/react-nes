@@ -142,11 +142,8 @@ class BaseRenderer extends Observer {
             this.setState({ showHelpModal: false });
           }}
         />
-        <canvas
-          id="nes-screen-canvas"
-          ref="canvasDst"
-          style={{ width: "100%", height: "100%" }}
-        />
+
+        <canvas id="nes-screen-canvas" ref="canvasDst" style={{ width: "100%", height: "100%" }} />
         <div
           id="overlay"
           style={{
@@ -154,7 +151,8 @@ class BaseRenderer extends Observer {
             bottom: 5,
             right: 21,
             zIndex: 2,
-            height: "3rem"
+            height: "3rem",
+            color: "black"
           }}
         >
           <div
@@ -167,10 +165,7 @@ class BaseRenderer extends Observer {
             <i className="fa fa-question fa-stack-1x fa-inverse" />
           </div>
 
-          <div
-            className="fa-stack fa-lg pull-right"
-            onClick={this.onPauseClick}
-          >
+          <div className="fa-stack fa-lg pull-right" onClick={this.onPauseClick}>
             <i className="fa fa-square fa-stack-2x" />
             {this.state.isPaused ? (
               <i className="fa fa-play fa-stack-1x fa-inverse" />
@@ -188,10 +183,7 @@ class BaseRenderer extends Observer {
             <i className="fa fa-sync-alt fa-stack-1x fa-inverse" />
           </div>
 
-          <div
-            className="fa-stack fa-lg pull-right"
-            onClick={this.onFullScreenClick}
-          >
+          <div className="fa-stack fa-lg pull-right" onClick={this.onFullScreenClick}>
             <i className="fa fa-square fa-stack-2x" />
             <i className="fa fa-expand fa-stack-1x fa-inverse" />
           </div>

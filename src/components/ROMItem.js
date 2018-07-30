@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import settings from "../config/settings";
+
 class ROMItem extends React.Component {
   render() {
     var cardStyle = {
@@ -9,10 +11,10 @@ class ROMItem extends React.Component {
     };
 
     var cardBackgroundStyle = {
-      borderBottomStyle: "solid",
       borderWidth: "0.05rem",
       width: "100%",
-      backgroundImage: "url(" + this.props.rom.cover + ")",
+      backgroundImage:
+        "url(" + settings.ROMS_PATH + "/" + this.props.rom.slug + ".jpg" + ")",
       backgroundSize: "cover"
     };
 
@@ -21,7 +23,7 @@ class ROMItem extends React.Component {
     return (
       <Link to={`/play/${this.props.rom.slug}`}>
         <div class="col-sm-3">
-          <div className="card" style={cardStyle}>
+          <div className="card color2 shadow" style={cardStyle}>
             <div className="card-block" style={cardBackgroundStyle}>
               <div style={{ paddingTop: "100%" }} />
             </div>

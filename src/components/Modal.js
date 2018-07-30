@@ -6,6 +6,12 @@ class Modal extends React.Component {
     super(props);
   }
 
+  componentDidMount() {
+    $(this.refs.modal).on("hidden.bs.modal", e => {
+      this.props.onClose();
+    });
+  }
+
   componentWillReceiveProps(props) {
     if (props.show) {
       $(this.refs.modal).modal("show");
@@ -23,7 +29,7 @@ class Modal extends React.Component {
         aria-hidden="true"
       >
         <div className="modal-dialog" role="document">
-          <div className="modal-content">
+          <div className="modal-content color2">
             <div className="modal-header">
               <h5 className="modal-title">{this.props.title}</h5>
               <button

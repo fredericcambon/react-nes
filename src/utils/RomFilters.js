@@ -4,6 +4,6 @@ import { ROMS, TOP_ROMS } from "./constants";
 
 export default function getTopRoms() {
   return _.filter(ROMS, r => {
-    return TOP_ROMS.indexOf(r.value) !== -1;
+    return TOP_ROMS.indexOf(r.slug) !== -1;
   });
 }

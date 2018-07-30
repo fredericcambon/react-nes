@@ -33,8 +33,8 @@ class SearchROM extends React.Component {
         onClose={() => {
           this.props.onClose();
         }}
-        placeholder="Search for games..."
-        className="form-control form-control-lg"
+        placeholder="Search NES games..."
+        className="form-control shadow form-control-lg"
       />
     );
   }

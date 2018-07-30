@@ -1,11 +1,26 @@
 import _ from "lodash";
+import roms from "./roms";
 
 export var NES_WIDTH = 256;
 export var NES_HEIGHT = 240;
 
-export var TOP_ROMS = [1, 2, 3, 4, 5];
+export var TOP_ROMS = [
+  "super-mario-bros",
+  "super-mario-bros-3",
+  "castlevania",
+  "zelda-ii-the-adventure-of-link",
+  "mega-man",
+  "metroid",
+  "kirby-s-adventure",
+  "the-legend-of-zelda",
+  "metal-gear",
+  "ninja-gaiden",
+  "castlevania-iii-dracula-s-curse",
+  "castlevania-ii-simon-s-quest"
+];
 
-// Still more reliable than MongoDB
+export var ROMS = roms;
+/*
 export var ROMS = [
   {
     value: 1,
@@ -109,7 +124,7 @@ export var ROMS = [
     cover: "",
     filepath: "mario-3.nes"
   }
-];
+];*/
 
 export var CHEATS = {
   "super-mario-bros": [

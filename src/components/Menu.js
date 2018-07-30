@@ -23,12 +23,24 @@ class Menu extends React.Component {
     };
 
     return (
-      <nav className="navbar navbar-dark bg-dark">
-        <div className="container-fluid">
-          <a className="navbar-brand">
-            <Link to="/">NES</Link>
-          </a>
-        </div>
+      <nav className="navbar navbar-expand-lg color1 rounded">
+        <a className="navbar-brand">
+          <Link className="colorText5" to="/">
+            <i class="fas fa-gamepad" /> <span> </span> onaNES
+          </Link>
+        </a>
+        <ul className="navbar-nav ml-auto">
+          <li className="nav-item">
+            <Link className="nav-link" to="/about">
+              About
+            </Link>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="https://github.com/fredericcambon/react-nes">
+              Github
+            </a>
+          </li>
+        </ul>
       </nav>
     );
   }
