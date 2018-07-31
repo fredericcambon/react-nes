@@ -14,7 +14,13 @@ class ROMItem extends React.Component {
       borderWidth: "0.05rem",
       width: "100%",
       backgroundImage:
-        "url(" + settings.ROMS_PATH + "/" + this.props.rom.slug + ".jpg" + ")",
+        "url(" +
+        settings.MEDIA_HOST +
+        "/" +
+        settings.ROMS_PATH +
+        this.props.rom.slug +
+        ".jpg" +
+        ")",
       backgroundSize: "cover"
     };
 
