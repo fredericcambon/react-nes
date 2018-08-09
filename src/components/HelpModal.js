@@ -5,12 +5,8 @@ import Modal from "./Modal";
 class HelpModal extends React.Component {
   render() {
     return (
-      <Modal
-        show={this.props.show}
-        onClose={this.props.onClose}
-        title="How to Play?"
-      >
-        <table className="table table-inverse">
+      <Modal show={this.props.show} onClose={this.props.onClose} title="How to Play?">
+        <table className="table table-borderless table-inverse">
           <thead>
             <tr>
               <th>NES</th>
@@ -20,11 +16,11 @@ class HelpModal extends React.Component {
           <tbody>
             <tr>
               <td>A</td>
-              <td>X</td>
+              <td>C</td>
             </tr>
             <tr>
               <td>B</td>
-              <td>C</td>
+              <td>X</td>
             </tr>
             <tr>
               <td>START</td>

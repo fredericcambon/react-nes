@@ -8,16 +8,18 @@ class BaseRenderer extends Observer {
    */
   constructor(props) {
     super(props);
-    this.console = props.console;
 
+    this.console = props.console;
     this.console.addObserver(this);
 
     // Status
     this.state = {
       isPaused: false,
       fps: 0,
-      showHelpModal: false
+      showHelpModal: localStorage.hasSeenControls === "0"
     };
+
+    console.log(this.state);
 
     // Counters to monitor framerate
     this.frameCounter = 0;
@@ -91,6 +93,11 @@ class BaseRenderer extends Observer {
     });
   };
 
+  onHelpModalClose = () => {
+    this.setState({ showHelpModal: false });
+    localStorage.hasSeenControls = "1";
+  };
+
   onMessage(t) {
     switch (t) {
       case "nes-quick-save": {
@@ -136,12 +143,7 @@ class BaseRenderer extends Observer {
           {this.state.message}
         </div>
 
-        <HelpModal
-          show={this.state.showHelpModal}
-          onClose={() => {
-            this.setState({ showHelpModal: false });
-          }}
-        />
+        <HelpModal show={this.state.showHelpModal} onClose={this.onHelpModalClose} />
 
         <canvas id="nes-screen-canvas" ref="canvasDst" style={{ width: "100%", height: "100%" }} />
         <div
@@ -162,7 +164,7 @@ class BaseRenderer extends Observer {
             }}
           >
             <i className="fa fa-square fa-stack-2x" />
-            <i className="fa fa-question fa-stack-1x fa-inverse" />
+            <i className="fa fa-gamepad fa-stack-1x fa-inverse" />
           </div>
 
           <div className="fa-stack fa-lg pull-right" onClick={this.onPauseClick}>
