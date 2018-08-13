@@ -1,11 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import getTopRoms from "../utils/RomFilters";
 
 import ROMList from "./ROMList";
 import SearchROM from "./SearchROM";
+import BaseGrid from "./BaseGrid";
+import BaseContainer from "./BaseContainer";
 
-class Grid extends React.Component {
+class HomeGrid extends React.Component {
   constructor(props) {
     super(props);
 
@@ -30,7 +33,7 @@ class Grid extends React.Component {
 
   render() {
     return (
-      <div className="container-fluid grid">
+      <BaseContainer>
         <div className="row">
           <div className="col-md-10 col-lg-8 col-xl-7 mx-auto">
             <form>
@@ -48,18 +51,20 @@ class Grid extends React.Component {
           </div>
         </div>
 
-        <div
-          className="jumbotron shadow mt-5 color3"
-          style={{ margin: "1rem" }}
-        >
-          <div className="container-fluid">
-            <div className="row justify-content-center" />
-            <ROMList roms={this.state.roms} />
+        <BaseGrid>
+          <ROMList roms={this.state.roms} />
+          <div
+            className="row justify-content-center"
+            style={{ marginTop: "2rem" }}
+          >
+            <Link to="/browse-all" className="btn btn-lg color7 shadow">
+              Browse All Games
+            </Link>
           </div>
-        </div>
-      </div>
+        </BaseGrid>
+      </BaseContainer>
     );
   }
 }
 
-export default Grid;
+export default HomeGrid;

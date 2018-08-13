@@ -34,6 +34,8 @@ h2,
 h3,
 h4,
 h5,
+button,
+a,
 .card-header {
   font-family: "Roboto Condensed", sans-serif;
 }
@@ -55,21 +57,23 @@ input:focus {
 }
 
 a,
-a:hover,
-a:active {
+a:hover {
   color: white;
   text-decoration: none;
   font-weight: normal !important;
 }
 
 .card:hover {
-  box-shadow: 0 0.5rem 1rem rgba(255, 85, 85, 0.2) !important;
+  box-shadow: 0 0.2rem 0.5rem rgba(255, 85, 85, 0.2) !important;
 }
 
 button:hover,
-.nav-link:hover {
+.btn:hover,
+.nav-link:hover,
+.nav-link.active {
   background-color: var(--color-5) !important;
   color: var(--color-6) !important;
+  transform: scale(1.02);
 }
 
 .color1 {
@@ -83,6 +87,16 @@ button:hover,
 
 .color3 {
   background-color: var(--color-3) !important;
+  color: var(--color-6);
+}
+
+.color5 {
+  background-color: var(--color-5) !important;
+  color: var(--color-6);
+}
+
+.color7 {
+  background-color: var(--color-7) !important;
   color: var(--color-6);
 }
 
@@ -104,7 +118,7 @@ button:hover,
 }
 
 .btn-round {
-  background-color: var(--color-4);
+  background-color: var(--color-5);
   border-radius: 999em !important;
   width: 56px;
   height: 56px;
@@ -123,7 +137,7 @@ button:hover,
   width: 100%;
   text-align: center;
   margin-top: -18px;
-  color: #FFF;
+  color: #fff;
 }
 
 .btn-round:hover {

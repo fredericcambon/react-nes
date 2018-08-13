@@ -4,7 +4,8 @@ import { Link, Route, BrowserRouter, Switch } from "react-router-dom";
 import DebugNES from "./components/DebugNES";
 
 import NES from "./components/NES";
-import Grid from "./components/Grid";
+import HomeGrid from "./components/HomeGrid";
+import BrowseGrid from "./components/BrowseGrid";
 import Menu from "./components/Menu";
 import About from "./components/About";
 
@@ -20,10 +21,12 @@ ReactDOM.render(
       <div id="wrap">
         <Menu />
         <Switch>
-          <Route exact={true} path="/" component={Grid} />
+          <Route exact={true} path="/" component={HomeGrid} />
           <Route path="/play/:game" component={NES} />
           <Route path="/about" component={About} />
           <Route path="/debug" component={DebugNES} />
+          <Route exact={true} path="/browse-all" component={BrowseGrid} />
+          <Route path="/browse/:filter" component={BrowseGrid} />
         </Switch>
       </div>
     </div>

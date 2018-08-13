@@ -14,9 +14,9 @@ export var TOP_ROMS = [
   "kirby-s-adventure",
   "the-legend-of-zelda",
   "metal-gear",
-  "ninja-gaiden",
-  "castlevania-iii-dracula-s-curse",
-  "castlevania-ii-simon-s-quest"
+  "ninja-gaiden"
+  //"castlevania-iii-dracula-s-curse",
+  //"castlevania-ii-simon-s-quest"
 ];
 
 export var ROMS = roms;
