@@ -10,7 +10,7 @@
     "jquery": "^3.3.1",
     "nes-emulator": "^1.0.7",
     "pixi.js": "^4.7.3",
-    "react": "^16.3.1",
+    "react": "^16.4.2",
     "react-dat-gui": "^1.0.2",
     "react-dom": "^16.3.1",
     "react-dropdown": "^1.5.0",
