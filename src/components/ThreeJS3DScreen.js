@@ -133,14 +133,6 @@ class ThreeJSScreen extends React.Component {
 
   render() {
     const { datGui } = this.state;
-    const messageStyle = {
-      position: "absolute",
-      left: "40%",
-      top: "50%",
-      textAlign: "center",
-      fontSize: 24,
-      fontWeight: "bold"
-    };
 
     return (
       <div>
@@ -149,10 +141,6 @@ class ThreeJSScreen extends React.Component {
             <DatBoolean path="use3DSprites" label="Use 3D Sprites" />
           </DatFolder>
         </DatGui>
-
-        <div id="message" style={messageStyle}>
-          {this.state.message}
-        </div>
 
         <BaseRenderer
           console={this.console}
