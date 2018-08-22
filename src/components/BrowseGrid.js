@@ -6,8 +6,8 @@ import ROMList from "./ROMList";
 import BaseGrid from "./BaseGrid";
 import BaseContainer from "./BaseContainer";
 
-const LETTERS = ["0..9"].concat(
-  [...Array(26).keys()].map(i => String.fromCharCode(i + 97).toUpperCase())
+const LETTERS = [...Array(26).keys()].map(i =>
+  String.fromCharCode(i + 97).toUpperCase()
 );
 
 function sortByNames(roms) {
