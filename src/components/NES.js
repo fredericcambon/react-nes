@@ -1,6 +1,6 @@
 import _ from "lodash";
 import React from "react";
-import { withRouter } from "react-router";
+import { withRouter } from "react-router-dom";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 
@@ -53,7 +53,7 @@ class NES extends React.Component {
 
   boot() {
     fetchROM(this.rom).then(
-      function(res) {
+      function (res) {
         this.console.loadROM(res.data);
         this.console.start();
       }.bind(this)
@@ -74,7 +74,7 @@ class NES extends React.Component {
     });
   }
 
-  onBugClick() {}
+  onBugClick() { }
 
   render() {
     const Renderer = this.renderers[this.state.renderer];

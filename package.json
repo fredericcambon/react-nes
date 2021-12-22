@@ -5,16 +5,18 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bootstrap": "^4.1.1",
+    "cors": "^2.8.5",
     "dat.gui": "^0.7.1",
     "express": "^4.16.3",
     "jquery": "^3.3.1",
     "nes-emulator": "^1.0.10",
+    "nodemon": "^2.0.15",
     "pixi.js": "^4.7.3",
     "react": "^16.4.2",
     "react-dat-gui": "^1.0.2",
     "react-dom": "^16.3.1",
     "react-dropdown": "^1.5.0",
-    "react-router-dom": "^4.2.2",
+    "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
     "react-select": "^1.2.1",
     "serve": "^9.2.0",
@@ -23,12 +25,14 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "postinstall": "npm run build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
+    "server": "nodemon server.js",
+    "prod": "cross-env NODE_ENV=production npm run server",
+    "dev": "cross-env NODE_ENV=development concurrently \"npm run server\" \"react-scripts start\"",
     "lint": "prettier --write src/**/*.js"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "popper.js": "^1.14.3"
-  }
+  },
+  "proxy": "http://localhost:8080"
 }
