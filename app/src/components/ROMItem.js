@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import settings from "../config/settings";
 
 class ROMItem extends React.Component {
   render() {
@@ -13,9 +14,7 @@ class ROMItem extends React.Component {
       width: "100%",
       backgroundImage:
         "url(" +
-        process.env.REACT_APP_MEDIA_HOST +
-        "/" +
-        process.env.REACT_APP_ROMS_PATH +
+        settings.REACT_APP_ROMS_PATH +
         this.props.rom.slug +
         ".jpg" +
         ")",

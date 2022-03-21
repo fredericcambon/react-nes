@@ -1,3 +1,4 @@
+import axios from "axios";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Link, Route, BrowserRouter, Switch } from "react-router-dom";
@@ -10,13 +11,17 @@ import Menu from "./components/Menu";
 import About from "./components/About";
 
 import "./static/App.css";
+import settings from "./config/settings";
 
 // Because jQuery must be loeaded before bootstrap ...
 window.jQuery = window.$ = require("jquery/dist/jquery.min");
 require("bootstrap/dist/js/bootstrap.min.js");
 
+axios.defaults.baseURL = window.location.origin + process.env.REACT_APP_BASE_PATH;
+
+
 ReactDOM.render(
-  <BrowserRouter>
+  <BrowserRouter basename={process.env.REACT_APP_BASE_PATH}>
     <div>
       <div id="wrap">
         <Menu />

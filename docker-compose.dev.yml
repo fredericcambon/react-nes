@@ -1,0 +1,15 @@
+version: '3.4'
+services:
+  api:
+    environment:
+      - NODE_ENV="development"
+  app:
+    build:
+      target: base
+    command: npm run start
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - DANGEROUSLY_DISABLE_HOST_CHECK=true
+  nginx:
+    volumes:
+      - ./nginx/development:/etc/nginx/conf.d

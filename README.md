@@ -12,7 +12,10 @@ React UI for https://github.com/fredericcambon/nes
 ## Installing
 
 ```shell
-npm install
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml build
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
+
+Go to localhost:8080
 ```
 
 ## Quick Start

@@ -1,0 +1,13 @@
+{
+    "name": "react-nes-api",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^10.0.0",
+        "express": "^4.16.3"
+    },
+    "scripts": {
+        "server": "node server.js"
+    }
+}
