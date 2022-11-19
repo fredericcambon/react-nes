@@ -16,14 +16,14 @@
         "react-dom": "^16.3.1",
         "react-dropdown": "^1.5.0",
         "react-router-dom": "^4.3.1",
-        "react-scripts": "1.1.4",
+        "react-scripts": "2.1.8",
         "react-select": "^1.2.1",
         "serve": "^9.2.0",
         "three": "^0.91.0"
     },
     "scripts": {
-        "start": "react-scripts start",
-        "build": "react-scripts build",
+        "start": "react-scripts --openssl-legacy-provider start",
+        "build": "react-scripts --openssl-legacy-provider build",
         "lint": "prettier --write src/**/*.js"
     },
     "devDependencies": {
