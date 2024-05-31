@@ -31,5 +31,5 @@
         "popper.js": "^1.14.3"
     },
     "proxy": "http://localhost:3001",
-    "homepage": "."
+    "homepage": "nes"
 }

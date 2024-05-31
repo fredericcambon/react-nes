@@ -1,32 +1,11 @@
 version: '3.4'
 services:
-  api:
-    build:
-      context: api/
-      dockerfile: Dockerfile
-    volumes:
-      - ./api:/usr/src/api
-      - /usr/src/api/node_modules
-    ports:
-      - "${API_PORT}:${API_PORT}"
   app:
     volumes:
       - ./app:/usr/src/app
       - /usr/src/app/node_modules
-    ports:
-      - "${APP_PORT}:${APP_PORT}"
-    build:
-      context: app/
-      dockerfile: Dockerfile
-  nginx:
-    depends_on:
-      - api
-      - app
-    restart: unless-stopped
-    build:
-      dockerfile: Dockerfile
-      context: nginx/
-    volumes:
       - ./media:/usr/share/nginx/media
     ports:
-      - "${NGINX_PORT}:80"
+      - "${APP_PORT}:${APP_PORT}"
+    image: "tribble42/react-nes"
+    pull_policy: always

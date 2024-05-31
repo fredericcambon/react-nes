@@ -2,10 +2,7 @@ FROM node:alpine as base
 
 WORKDIR /usr/src/app
 
-ARG base_path="/"
 ARG port=3000
-
-ENV REACT_APP_BASE_PATH=$base_path
 
 COPY package.json ./
 
@@ -22,7 +19,7 @@ RUN npm run build
 
 FROM nginx
 
-ARG port=3000
+ARG port=8080
 EXPOSE $port
 
 COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
