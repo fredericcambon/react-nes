@@ -12,14 +12,13 @@ class BaseRenderer extends Observer {
     this.console = props.console;
     this.console.addObserver(this);
 
-    // Status
+    // Status. Show the controls popup automatically until the player has
+    // dismissed it once (hasSeenControls is only ever set after a close).
     this.state = {
       isPaused: false,
       fps: 0,
-      showHelpModal: localStorage.hasSeenControls === "0"
+      showHelpModal: !localStorage.hasSeenControls
     };
-
-    console.log(this.state);
 
     // Counters to monitor framerate
     this.frameCounter = 0;
@@ -159,6 +158,8 @@ class BaseRenderer extends Observer {
         >
           <div
             className="fa-stack fa-lg pull-right"
+            title="Controls — how to play"
+            style={{ color: "var(--color-5)" }}
             onClick={() => {
               this.setState({ showHelpModal: true });
             }}
@@ -167,7 +168,11 @@ class BaseRenderer extends Observer {
             <i className="fa fa-gamepad fa-stack-1x fa-inverse" />
           </div>
 
-          <div className="fa-stack fa-lg pull-right" onClick={this.onPauseClick}>
+          <div
+            className="fa-stack fa-lg pull-right"
+            title={this.state.isPaused ? "Resume" : "Pause"}
+            onClick={this.onPauseClick}
+          >
             <i className="fa fa-square fa-stack-2x" />
             {this.state.isPaused ? (
               <i className="fa fa-play fa-stack-1x fa-inverse" />
@@ -175,17 +180,29 @@ class BaseRenderer extends Observer {
               <i className="fa fa-pause fa-stack-1x fa-inverse" />
             )}
           </div>
-          <div className="fa-stack fa-lg pull-right" onClick={this.onSaveClick}>
+          <div
+            className="fa-stack fa-lg pull-right"
+            title="Save state"
+            onClick={this.onSaveClick}
+          >
             <i className="fa fa-square fa-stack-2x" />
             <i className="fa fa-save fa-stack-1x fa-inverse" />
           </div>
 
-          <div className="fa-stack fa-lg pull-right" onClick={this.onLoadClick}>
+          <div
+            className="fa-stack fa-lg pull-right"
+            title="Load last save"
+            onClick={this.onLoadClick}
+          >
             <i className="fa fa-square fa-stack-2x" />
             <i className="fa fa-sync-alt fa-stack-1x fa-inverse" />
           </div>
 
-          <div className="fa-stack fa-lg pull-right" onClick={this.onFullScreenClick}>
+          <div
+            className="fa-stack fa-lg pull-right"
+            title="Fullscreen"
+            onClick={this.onFullScreenClick}
+          >
             <i className="fa fa-square fa-stack-2x" />
             <i className="fa fa-expand fa-stack-1x fa-inverse" />
           </div>

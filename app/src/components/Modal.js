@@ -10,6 +10,13 @@ class Modal extends React.Component {
     $(this.refs.modal).on("hidden.bs.modal", e => {
       this.props.onClose();
     });
+
+    // componentWillReceiveProps only fires on prop *changes*, so a modal that
+    // mounts already in the shown state (e.g. the first-run controls popup)
+    // would never actually open. Handle the initial show here.
+    if (this.props.show) {
+      $(this.refs.modal).modal("show");
+    }
   }
 
   componentWillReceiveProps(props) {

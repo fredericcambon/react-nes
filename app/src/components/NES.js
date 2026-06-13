@@ -15,6 +15,7 @@ import Menu from "./Menu";
 import { ROMS, CHEATS, INFOS } from "../utils/constants";
 import fetchROM from "../utils/Request";
 import BugModal from "./BugModal";
+import ControlsDiagram from "./ControlsDiagram";
 
 const SCREEN_RENDERER = "PixiJS";
 const THREEJS_RENDERER = "ThreeJS";
@@ -102,6 +103,12 @@ class NES extends React.Component {
                 <Renderer console={this.console} />
               </div>
               <div className="col-xl-4">
+                <div className="card color2 m-3">
+                  <div className="card-header options-card-header">Controls</div>
+                  <div className="card-body">
+                    <ControlsDiagram />
+                  </div>
+                </div>
                 <div className="card color2 m-3">
                   <div className="card-header options-card-header">Renderer</div>
                   <Dropdown
