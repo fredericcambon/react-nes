@@ -1,0 +1,77 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - master
+      - feat/github-pages
+  workflow_dispatch:
+
+# Permissions required by the GitHub Pages deployment action.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment; cancel in-progress runs for the same group.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout app
+        uses: actions/checkout@v4
+
+      - name: Checkout ROM data
+        uses: actions/checkout@v4
+        with:
+          repository: fredericcambon/react-nes-data
+          path: rom-data
+
+      # react-scripts 2.1.8 / webpack 4 predate OpenSSL 3, so we build on Node 16
+      # (OpenSSL 1.1.1) to avoid the "digital envelope routines" error without
+      # needing --openssl-legacy-provider.
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        working-directory: app
+        run: npm install --legacy-peer-deps
+
+      # The package.json "build" script is broken (it passes --openssl-legacy-provider
+      # as react-scripts' command argument), so invoke react-scripts directly.
+      # CI=false stops react-scripts from treating lint warnings as build errors.
+      # PUBLIC_URL is derived automatically from the "homepage" field (/react-nes).
+      - name: Build
+        working-directory: app
+        env:
+          CI: "false"
+        run: npx react-scripts build
+
+      # Serve ROMs and cover art from the same origin as the app (no CORS needed).
+      - name: Copy ROM data into build
+        run: |
+          mkdir -p app/build/media/data
+          cp rom-data/*.nes app/build/media/data/
+          cp rom-data/*.jpg app/build/media/data/
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: app/build
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
