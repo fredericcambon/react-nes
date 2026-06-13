@@ -157,6 +157,18 @@ button:hover,
 
 .controls-group {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Center each group's keys on a shared band so the buttons sit level with the
+   middle of the D-pad (2 rows * 2.25rem + 0.2rem gap = 4.7rem). */
+.controls-cap-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 4.7rem;
 }
 
 .controls-group-label {
@@ -220,7 +232,7 @@ button:hover,
 .dpad-grid {
   display: grid;
   grid-template-columns: repeat(3, 2.25rem);
-  grid-template-rows: repeat(3, 2.25rem);
+  grid-template-rows: repeat(2, 2.25rem);
   gap: 0.2rem;
   justify-content: center;
 }

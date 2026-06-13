@@ -23,32 +23,35 @@ class ControlsDiagram extends React.Component {
     return (
       <div className="controls-diagram">
         <div className="controls-group">
-          <div className="dpad-grid">
-            <span className="empty" />
-            <Cap>&#8593;</Cap>
-            <span className="empty" />
-            <Cap>&#8592;</Cap>
-            <span className="empty" />
-            <Cap>&#8594;</Cap>
-            <span className="empty" />
-            <Cap>&#8595;</Cap>
-            <span className="empty" />
+          <div className="controls-cap-area">
+            <div className="dpad-grid">
+              <span className="empty" />
+              <Cap>&#8593;</Cap>
+              <span className="empty" />
+              <Cap>&#8592;</Cap>
+              <Cap>&#8595;</Cap>
+              <Cap>&#8594;</Cap>
+            </div>
           </div>
           <div className="controls-group-label">Move</div>
         </div>
 
         <div className="controls-group">
-          <div className="control-row">
-            <Control cap="X" label="B" capClass="btn-cap" />
-            <Control cap="C" label="A" capClass="btn-cap" />
+          <div className="controls-cap-area">
+            <div className="control-row">
+              <Control cap="X" label="B" capClass="btn-cap" />
+              <Control cap="C" label="A" capClass="btn-cap" />
+            </div>
           </div>
           <div className="controls-group-label">Buttons</div>
         </div>
 
         <div className="controls-group">
-          <div className="control-row">
-            <Control cap="Enter" label="START" wide={true} />
-            <Control cap="Shift" label="SELECT" wide={true} />
+          <div className="controls-cap-area">
+            <div className="control-row">
+              <Control cap="Enter" label="START" wide={true} />
+              <Control cap="Shift" label="SELECT" wide={true} />
+            </div>
           </div>
           <div className="controls-group-label">System</div>
         </div>
