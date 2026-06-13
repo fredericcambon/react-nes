@@ -25,10 +25,14 @@ jobs:
       - name: Checkout app
         uses: actions/checkout@v4
 
+      # react-nes-data is private, so the default GITHUB_TOKEN (scoped to this
+      # repo only) can't read it. ROM_DATA_TOKEN is a fine-grained PAT with
+      # read-only Contents access to react-nes-data, stored as a repo secret.
       - name: Checkout ROM data
         uses: actions/checkout@v4
         with:
           repository: fredericcambon/react-nes-data
+          token: ${{ secrets.ROM_DATA_TOKEN }}
           path: rom-data
 
       # react-scripts 2.1.8 / webpack 4 predate OpenSSL 3, so we build on Node 16
